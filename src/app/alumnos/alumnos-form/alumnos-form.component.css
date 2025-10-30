@@ -2,6 +2,30 @@
   max-width: 600px;
   margin: 20px auto;
   padding: 30px;
+  /* Evitar fondo blanco en la tarjeta del formulario y heredar colores del tema */
+  background-color: transparent;
+  color: #e0e0e0;
+  box-shadow: none;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+}
+
+mat-card-title {
+  color: #e0e0e0;
+}
+
+mat-form-field {
+  color: #e0e0e0;
+}
+
+mat-form-field input.mat-input-element,
+mat-form-field textarea.mat-input-element {
+  color: #f5f5f5;
+  background: transparent;
+}
+
+.mat-error {
+  color: #ff8a80;
 }
 
 .form-row {
