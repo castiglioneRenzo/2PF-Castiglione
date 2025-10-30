@@ -1,0 +1,84 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ isEditMode ? 'Editar Curso' : 'Crear Curso' }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Título</mat-label>
+          <input matInput formControlName="title" placeholder="Ingrese el título del curso" />
+          @if (title?.invalid && (title?.dirty || title?.touched)) {
+          <mat-error>
+            @if (title?.hasError('required')) { El título es requerido } @if
+            (title?.hasError('minlength')) { El título debe tener al menos 3 caracteres }
+          </mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <textarea
+            matInput
+            formControlName="description"
+            placeholder="Ingrese la descripción del curso"
+            rows="4"
+          ></textarea>
+          @if (description?.invalid && (description?.dirty || description?.touched)) {
+          <mat-error>
+            @if (description?.hasError('required')) { La descripción es requerida } @if
+            (description?.hasError('minlength')) { La descripción debe tener al menos 10 caracteres
+            }
+          </mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de Inicio</mat-label>
+          <input matInput [matDatepicker]="pickerBegin" formControlName="beginDate" />
+          <mat-datepicker-toggle matSuffix [for]="pickerBegin"></mat-datepicker-toggle>
+          <mat-datepicker #pickerBegin></mat-datepicker>
+          @if (beginDate?.invalid && (beginDate?.dirty || beginDate?.touched)) {
+          <mat-error> La fecha de inicio es requerida </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de Fin</mat-label>
+          <input matInput [matDatepicker]="pickerEnd" formControlName="endDate" />
+          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+          <mat-datepicker #pickerEnd></mat-datepicker>
+          @if (endDate?.invalid && (endDate?.dirty || endDate?.touched)) {
+          <mat-error> La fecha de fin es requerida </mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="status">
+            @for (statusOption of courseStatuses; track statusOption) {
+            <mat-option [value]="statusOption">{{ statusOption }}</mat-option>
+            }
+          </mat-select>
+          @if (status?.invalid && (status?.dirty || status?.touched)) {
+          <mat-error> El estado es requerido </mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="form-actions">
+        <button mat-raised-button type="button" (click)="onCancel()">Cancelar</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!courseForm.valid">
+          {{ isEditMode ? 'Actualizar' : 'Crear' }}
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

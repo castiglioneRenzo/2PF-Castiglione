@@ -1,0 +1,52 @@
+<div class="login-container">
+  <mat-card class="login-card" role="main" aria-labelledby="login-title">
+    <div class="avatar" aria-hidden="true">
+      <mat-icon>person</mat-icon>
+    </div>
+
+    <mat-card-header>
+      <mat-card-title id="login-title">Iniciar sesión</mat-card-title>
+      <mat-card-subtitle>Accede a tu cuenta para continuar</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form class="login-form" novalidate>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            placeholder="nombre@ejemplo.com"
+            type="email"
+            aria-label="Email"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            placeholder="Tu contraseña"
+            type="password"
+            aria-label="Contraseña"
+            required
+          />
+        </mat-form-field>
+
+        <div class="options-row">
+          <mat-checkbox class="remember">Recordarme</mat-checkbox>
+          <a class="forgot" href="#">Olvidé mi contraseña</a>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions class="actions">
+      <button mat-raised-button color="primary" class="full-width">Iniciar sesión</button>
+      <button mat-button color="accent" class="full-width outline">Crear cuenta</button>
+    </mat-card-actions>
+
+    <mat-card-footer class="login-card-footer">
+      <small>Al continuar aceptas los términos y condiciones.</small>
+    </mat-card-footer>
+  </mat-card>
+</div>

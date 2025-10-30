@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Include Angular Material theme */
+/* Opciones disponibles para cambiar fácilmente: */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+/* @import '@angular/material/prebuilt-themes/pink-bluegrey.css'; */
+/* @import '@angular/material/prebuilt-themes/purple-green.css'; */
+/* @import '@angular/material/prebuilt-themes/indigo-pink.css'; */
+
+/* Global styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding: 20px;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Asegurar que las tablas de Material tengan el estilo correcto */
+.mat-mdc-table {
+  width: 100%;
+}
+
+.mat-mdc-header-cell {
+  font-weight: 500;
+}
+
+
