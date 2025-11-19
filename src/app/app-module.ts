@@ -31,17 +31,15 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 
 // Components
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { Dashboard } from './featured/dashboard/dashboard';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { ToolbarComponent } from './shared/toolbar/toolbar.component';
 import { SharedModule } from './shared/shared-module';
 
 @NgModule({
   declarations: [
     App,
-    // NavbarComponent,
-    // ToolbarComponent,
-    Dashboard
+    NavbarComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
