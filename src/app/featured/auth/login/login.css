@@ -102,6 +102,23 @@ button.outline {
 	color: rgba(255, 255, 255, 0.6);
 }
 
+.error-message {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	background-color: rgba(244, 67, 54, 0.1);
+	color: #f44336;
+	padding: 12px;
+	border-radius: 4px;
+	margin-bottom: 16px;
+}
+
+.error-message mat-icon {
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
+}
+
 @media (max-width: 420px) {
 	.login-card { margin: 0 12px; }
 }

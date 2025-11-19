@@ -1,28 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { Dashboard } from './featured/dashboard/dashboard';
-import { Login } from './featured/auth/login/login';
+import { authGuard } from './core/guards/auth.guard';
+import { adminGuard } from './core/guards/admin.guard';
 
 const routes: Routes = [
-  // { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  // { path: 'dashboard', component: DashboardComponent },
-  // { 
-  //   path: 'alumnos', 
-  //   loadChildren: () => import('./alumnos/alumnos.module').then(m => m.AlumnosModule)
-  // },
-  // { path: '**', redirectTo: '/dashboard' },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {
-    path: 'login',
-    component: Login,
+    path: 'auth',
+    loadChildren: () => import('./featured/auth/auth-module').then((m) => m.AuthModule),
   },
   {
     path: 'dashboard',
-    component: Dashboard,
+    canActivate: [authGuard],
     loadChildren: () =>
       import('./featured/dashboard/dashboard-module').then((m) => m.DashboardModule),
   },
+  { path: '**', redirectTo: '/dashboard' },
 ];
 
 @NgModule({

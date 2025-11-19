@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Home } from './home/home';
 
+import { adminGuard } from '../../core/guards/admin.guard';
+
 const routes: Routes = [
   {
     path: '',
@@ -14,6 +16,16 @@ const routes: Routes = [
   {
     path: 'students',
     loadChildren: () => import('./students/students-module').then((m) => m.StudentsModule),
+  },
+  {
+    path: 'enrollments',
+    loadChildren: () =>
+      import('./enrollments/enrollments.module').then((m) => m.EnrollmentsModule),
+  },
+  {
+    path: 'users',
+    canActivate: [adminGuard],
+    loadChildren: () => import('./users/users.module').then((m) => m.UsersModule),
   },
 ];
 
