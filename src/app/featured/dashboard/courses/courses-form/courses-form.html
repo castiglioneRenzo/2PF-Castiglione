@@ -7,12 +7,12 @@
     <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
       <div class="form-row">
         <mat-form-field appearance="outline">
-          <mat-label>Título</mat-label>
-          <input matInput formControlName="title" placeholder="Ingrese el título del curso" />
-          @if (title?.invalid && (title?.dirty || title?.touched)) {
+          <mat-label>Nombre del Curso</mat-label>
+          <input matInput formControlName="name" placeholder="Ingrese el nombre del curso" />
+          @if (name?.invalid && (name?.dirty || name?.touched)) {
           <mat-error>
-            @if (title?.hasError('required')) { El título es requerido } @if
-            (title?.hasError('minlength')) { El título debe tener al menos 3 caracteres }
+            @if (name?.hasError('required')) { El nombre es requerido } @if
+            (name?.hasError('minlength')) { El nombre debe tener al menos 3 caracteres }
           </mat-error>
           }
         </mat-form-field>
@@ -39,20 +39,40 @@
 
       <div class="form-row">
         <mat-form-field appearance="outline">
+          <mat-label>Duración (horas)</mat-label>
+          <input matInput type="number" formControlName="duration" placeholder="Ej: 120" />
+          @if (duration?.invalid && (duration?.dirty || duration?.touched)) {
+          <mat-error>
+            @if (duration?.hasError('required')) { La duración es requerida } @if
+            (duration?.hasError('min')) { La duración debe ser mayor a 0 }
+          </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Máximo de Estudiantes</mat-label>
+          <input matInput type="number" formControlName="maxStudents" placeholder="Ej: 30" />
+          @if (maxStudents?.invalid && (maxStudents?.dirty || maxStudents?.touched)) {
+          <mat-error>
+            @if (maxStudents?.hasError('required')) { El máximo de estudiantes es requerido } @if
+            (maxStudents?.hasError('min')) { Debe ser mayor a 0 }
+          </mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
           <mat-label>Fecha de Inicio</mat-label>
-          <input matInput [matDatepicker]="pickerBegin" formControlName="beginDate" />
-          <mat-datepicker-toggle matSuffix [for]="pickerBegin"></mat-datepicker-toggle>
-          <mat-datepicker #pickerBegin></mat-datepicker>
-          @if (beginDate?.invalid && (beginDate?.dirty || beginDate?.touched)) {
+          <input matInput type="date" formControlName="startDate" />
+          @if (startDate?.invalid && (startDate?.dirty || startDate?.touched)) {
           <mat-error> La fecha de inicio es requerida </mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Fecha de Fin</mat-label>
-          <input matInput [matDatepicker]="pickerEnd" formControlName="endDate" />
-          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-          <mat-datepicker #pickerEnd></mat-datepicker>
+          <input matInput type="date" formControlName="endDate" />
           @if (endDate?.invalid && (endDate?.dirty || endDate?.touched)) {
           <mat-error> La fecha de fin es requerida </mat-error>
           }
@@ -61,14 +81,24 @@
 
       <div class="form-row">
         <mat-form-field appearance="outline">
-          <mat-label>Estado</mat-label>
-          <mat-select formControlName="status">
-            @for (statusOption of courseStatuses; track statusOption) {
-            <mat-option [value]="statusOption">{{ statusOption }}</mat-option>
-            }
-          </mat-select>
-          @if (status?.invalid && (status?.dirty || status?.touched)) {
-          <mat-error> El estado es requerido </mat-error>
+          <mat-label>Instructor</mat-label>
+          <input matInput formControlName="instructor" placeholder="Nombre del instructor" />
+          @if (instructor?.invalid && (instructor?.dirty || instructor?.touched)) {
+          <mat-error> El instructor es requerido </mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Horario</mat-label>
+          <input
+            matInput
+            formControlName="schedule"
+            placeholder="Ej: Lunes y Miércoles 18:00-21:00"
+          />
+          @if (schedule?.invalid && (schedule?.dirty || schedule?.touched)) {
+          <mat-error> El horario es requerido </mat-error>
           }
         </mat-form-field>
       </div>

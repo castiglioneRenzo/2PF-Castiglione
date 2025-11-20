@@ -1,8 +1,20 @@
-import { Component, ViewChild } from '@angular/core';
-import { Student, studentColumns } from '../../../../core/services/students/model/Student';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { StudentsService } from '../../../../core/services/students/students';
+import { Store } from '@ngrx/store';
+import { Student } from '../../../../core/models/student.model';
+import * as StudentsActions from '../../../../store/students/students.actions';
+import { selectAllStudents, selectStudentsLoading } from '../../../../store/students/students.selectors';
+
+const studentColumns: string[] = [
+  'id',
+  'firstName',
+  'lastName',
+  'email',
+  'phone',
+  'enrollmentDate',
+  'actions'
+];
 
 @Component({
   selector: 'app-students-table',
@@ -10,22 +22,25 @@ import { StudentsService } from '../../../../core/services/students/students';
   templateUrl: './students-table.html',
   styleUrl: './students-table.css'
 })
-export class StudentsTable {
+export class StudentsTable implements OnInit {
   displayedColumns: string[] = studentColumns;
   dataSource = new MatTableDataSource<Student>([]);
+  isLoading$;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private studentsService: StudentsService) {
-    this.dataSource = new MatTableDataSource<Student>([]);
-    this.studentsService.students$.subscribe(students => {
+  constructor(private readonly store: Store) {
+    this.isLoading$ = this.store.select(selectStudentsLoading);
+    this.store.select(selectAllStudents).subscribe(students => {
       this.dataSource.data = students;
-      this.dataSource.paginator = this.paginator;
+      if (this.paginator) {
+        this.dataSource.paginator = this.paginator;
+      }
     });
   }
 
   ngOnInit(): void {
-    this.studentsService.getStudents();
+    this.store.dispatch(StudentsActions.loadStudents());
   }
 
   ngAfterViewInit() {
@@ -42,6 +57,6 @@ export class StudentsTable {
   }
 
   onDeleteStudent(id: number): void {
-    this.studentsService.deleteStudent(id);
+    this.store.dispatch(StudentsActions.deleteStudent({ id }));
   }
 }

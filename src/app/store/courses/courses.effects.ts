@@ -15,7 +15,10 @@ export class CoursesEffects {
       ofType(CoursesActions.loadCourses),
       exhaustMap(() =>
         this.coursesService.getAll().pipe(
-          map((courses) => CoursesActions.loadCoursesSuccess({ courses })),
+          map((courses) => {
+            console.log('Cursos recibidos en efecto:', courses);
+            return CoursesActions.loadCoursesSuccess({ courses });
+          }),
           catchError((error) =>
             of(CoursesActions.loadCoursesFailure({ error: error.message }))
           )

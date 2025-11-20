@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StudentsService } from '../../../../core/services/students/students';
-import { Student } from '../../../../core/services/students/model/Student';
+import { Store } from '@ngrx/store';
+import { Student } from '../../../../core/models/student.model';
+import * as StudentsActions from '../../../../store/students/students.actions';
+import { selectStudentById } from '../../../../store/students/students.selectors';
 
 @Component({
   selector: 'app-students-form',
@@ -17,7 +19,7 @@ export class StudentsForm implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private studentsService: StudentsService,
+    private store: Store,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -36,40 +38,41 @@ export class StudentsForm implements OnInit {
 
   initForm(): void {
     this.studentForm = this.fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(2)]],
-      apellido: ['', [Validators.required, Validators.minLength(2)]],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      edad: ['', [Validators.required, Validators.min(16), Validators.max(100)]],
-      fechaIngreso: ['', Validators.required],
-      curso: ['']
+      phone: ['', Validators.required],
+      address: ['', Validators.required],
+      birthDate: ['', Validators.required]
     });
   }
 
   loadStudent(id: number): void {
-    const student = this.studentsService.getStudentById(id);
-    if (student) {
-      this.studentForm.patchValue({
-        nombre: student.nombre,
-        apellido: student.apellido,
-        email: student.email,
-        edad: student.edad,
-        fechaIngreso: student.fechaIngreso,
-        curso: student.curso || ''
-      });
-    }
+    this.store.select(selectStudentById(id)).subscribe(student => {
+      if (student) {
+        this.studentForm.patchValue({
+          firstName: student.firstName,
+          lastName: student.lastName,
+          email: student.email,
+          phone: student.phone,
+          address: student.address,
+          birthDate: student.birthDate
+        });
+      }
+    });
   }
 
   onSubmit(): void {
     if (this.studentForm.valid) {
-      const studentData: Student = {
-        id: this.studentId || 0,
-        ...this.studentForm.value
-      };
+      const studentData = this.studentForm.value;
 
-      if (this.isEditMode) {
-        this.studentsService.updateStudent(studentData);
+      if (this.isEditMode && this.studentId) {
+        this.store.dispatch(StudentsActions.updateStudent({ 
+          id: this.studentId, 
+          student: studentData 
+        }));
       } else {
-        this.studentsService.addStudent(studentData);
+        this.store.dispatch(StudentsActions.createStudent({ student: studentData }));
       }
 
       this.router.navigate(['/dashboard/students']);
@@ -80,23 +83,27 @@ export class StudentsForm implements OnInit {
     this.router.navigate(['/dashboard/students']);
   }
 
-  get nombre() {
-    return this.studentForm.get('nombre');
+  get firstName() {
+    return this.studentForm.get('firstName');
   }
 
-  get apellido() {
-    return this.studentForm.get('apellido');
+  get lastName() {
+    return this.studentForm.get('lastName');
   }
 
   get email() {
     return this.studentForm.get('email');
   }
 
-  get edad() {
-    return this.studentForm.get('edad');
+  get phone() {
+    return this.studentForm.get('phone');
   }
 
-  get fechaIngreso() {
-    return this.studentForm.get('fechaIngreso');
+  get address() {
+    return this.studentForm.get('address');
+  }
+
+  get birthDate() {
+    return this.studentForm.get('birthDate');
   }
 }

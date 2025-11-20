@@ -8,22 +8,22 @@
       <div class="form-row">
         <mat-form-field appearance="outline">
           <mat-label>Nombre</mat-label>
-          <input matInput formControlName="nombre" placeholder="Ingrese el nombre" />
-          @if (nombre?.invalid && (nombre?.dirty || nombre?.touched)) {
+          <input matInput formControlName="firstName" placeholder="Ingrese el nombre" />
+          @if (firstName?.invalid && (firstName?.dirty || firstName?.touched)) {
           <mat-error>
-            @if (nombre?.hasError('required')) { El nombre es requerido } @if
-            (nombre?.hasError('minlength')) { El nombre debe tener al menos 2 caracteres }
+            @if (firstName?.hasError('required')) { El nombre es requerido } @if
+            (firstName?.hasError('minlength')) { El nombre debe tener al menos 2 caracteres }
           </mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Apellido</mat-label>
-          <input matInput formControlName="apellido" placeholder="Ingrese el apellido" />
-          @if (apellido?.invalid && (apellido?.dirty || apellido?.touched)) {
+          <input matInput formControlName="lastName" placeholder="Ingrese el apellido" />
+          @if (lastName?.invalid && (lastName?.dirty || lastName?.touched)) {
           <mat-error>
-            @if (apellido?.hasError('required')) { El apellido es requerido } @if
-            (apellido?.hasError('minlength')) { El apellido debe tener al menos 2 caracteres }
+            @if (lastName?.hasError('required')) { El apellido es requerido } @if
+            (lastName?.hasError('minlength')) { El apellido debe tener al menos 2 caracteres }
           </mat-error>
           }
         </mat-form-field>
@@ -42,31 +42,35 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Edad</mat-label>
-          <input matInput formControlName="edad" type="number" placeholder="18" />
-          @if (edad?.invalid && (edad?.dirty || edad?.touched)) {
-          <mat-error>
-            @if (edad?.hasError('required')) { La edad es requerida } @if (edad?.hasError('min') ||
-            edad?.hasError('max')) { La edad debe estar entre 16 y 100 años }
-          </mat-error>
+          <mat-label>Teléfono</mat-label>
+          <input matInput formControlName="phone" placeholder="+54 11 1234-5678" />
+          @if (phone?.invalid && (phone?.dirty || phone?.touched)) {
+          <mat-error> @if (phone?.hasError('required')) { El teléfono es requerido } </mat-error>
           }
         </mat-form-field>
       </div>
 
       <div class="form-row">
         <mat-form-field appearance="outline">
-          <mat-label>Fecha de Ingreso</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="fechaIngreso" />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          @if (fechaIngreso?.invalid && (fechaIngreso?.dirty || fechaIngreso?.touched)) {
-          <mat-error> La fecha de ingreso es requerida </mat-error>
+          <mat-label>Dirección</mat-label>
+          <input
+            matInput
+            formControlName="address"
+            placeholder="Av. Corrientes 1234, Buenos Aires"
+          />
+          @if (address?.invalid && (address?.dirty || address?.touched)) {
+          <mat-error> @if (address?.hasError('required')) { La dirección es requerida } </mat-error>
           }
         </mat-form-field>
+      </div>
 
+      <div class="form-row">
         <mat-form-field appearance="outline">
-          <mat-label>Curso (Opcional)</mat-label>
-          <input matInput formControlName="curso" placeholder="Angular Fundamentals" />
+          <mat-label>Fecha de Nacimiento</mat-label>
+          <input matInput type="date" formControlName="birthDate" />
+          @if (birthDate?.invalid && (birthDate?.dirty || birthDate?.touched)) {
+          <mat-error> La fecha de nacimiento es requerida </mat-error>
+          }
         </mat-form-field>
       </div>
 

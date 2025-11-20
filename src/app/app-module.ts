@@ -26,6 +26,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -70,7 +71,8 @@ import { SharedModule } from './shared/shared-module';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatDividerModule
+  MatDividerModule,
+  MatSnackBarModule
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
   bootstrap: [App]
